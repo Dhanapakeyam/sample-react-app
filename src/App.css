@@ -1,7 +1,6 @@
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+.App {
+  margin-bottom: 5px;
+  padding: 10px;
 }
 
 .movie-poster {
@@ -45,6 +44,7 @@
   flex-direction: column;
   max-width: 300px;
   margin: 1rem auto;
+  /* margin-top: 25px; */
   gap: 0.8rem;
 }
 
@@ -59,4 +59,9 @@
   max-width: 850px;
   margin: 0 auto;
   text-align: center;
+}
+
+.movie-details-container {
+  max-width: 500px;
+  padding: 16px;
 }

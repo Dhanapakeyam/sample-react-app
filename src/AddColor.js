@@ -9,7 +9,7 @@ export function AddColor() {
         <div>
             <input style={styles} onChange={(event) => setColor(event.target.value)} placeholder="Enter a color" value={color} />
             <button onClick={() => setcolorList([...colorList, color])}>Add Color</button>
-            {colorList.map((clr) => (<ColorBox colorname={clr} />))};
+            {colorList.map((clr) => (<ColorBox colorname={clr} />))}
         </div>
     );
 }
