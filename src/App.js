@@ -15,6 +15,9 @@ import Brightness4Icon from '@mui/icons-material/Brightness4';
 import { MovieDetails } from './MovieDetails';
 import { Home } from './Home';
 import { NotFound } from './NotFound';
+import { BasicForm } from './BasicForm';
+
+
 
 
 // const INITIAL_MOVIE_LIST = [
@@ -134,6 +137,7 @@ function App() {
             <Route path="/movies/:id" element={<MovieDetails />} />
             <Route path='/color-game' element={<AddColor />} />
             <Route path='/movies/add' element={<AddMovie />} />
+            <Route path='/basic-form' element={<BasicForm />} />
             <Route path='*' element={<NotFound />} />
           </Routes>
           {/* <MovieList />
