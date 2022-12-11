@@ -16,6 +16,7 @@ import { MovieDetails } from './MovieDetails';
 import { Home } from './Home';
 import { NotFound } from './NotFound';
 import { BasicForm } from './BasicForm';
+import { EditMovie } from './EditMovie';
 
 
 
@@ -137,6 +138,7 @@ function App() {
             <Route path="/movies/:id" element={<MovieDetails />} />
             <Route path='/color-game' element={<AddColor />} />
             <Route path='/movies/add' element={<AddMovie />} />
+            <Route path='/movies/edit/:id' element={<EditMovie />} />
             <Route path='/basic-form' element={<BasicForm />} />
             <Route path='*' element={<NotFound />} />
           </Routes>

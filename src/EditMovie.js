@@ -1,9 +1,10 @@
-// import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { useFormik } from "formik";
 import * as yup from 'yup';
+import { MovieDetails } from './MovieDetails';
 
 
 const addMovieFormValidationSchema = yup.object({
@@ -19,31 +20,45 @@ const addMovieFormValidationSchema = yup.object({
     trailer: yup.string().required("A cool trailer is in need").min(5).url(),
 });
 
-export function AddMovie() {
-    // const [name, setName] = useState("");
-    // const [poster, setPoster] = useState("");
-    // const [rating, setRating] = useState("");
-    // const [summary, setSummary] = useState("");
-    // const [trailer, setTrailer] = useState("");
+export function EditMovie() {
+    const { id } = useParams();
+    const [movie, setmovie] = useState(null);
+
+    useEffect(() => {
+        fetch(`https://63899fdec5356b25a203ee32.mockapi.io/movies/${id}`, { method: 'GET' })
+            .then(data => data.json())
+            .then((mve) => {
+                console.log(mve);
+                setmovie(mve)
+            });
+    }, []);
+    return (
+        <div>
+            {movie ? <EditMovieForm movie={movie} /> : "Loading..."}
+        </div>
+    )
+}
+function EditMovieForm({ movie }) {
 
     const formik = useFormik({
         initialValues: {
-            name: "",
-            poster: "",
-            rating: "",
-            summary: "",
-            trailer: "",
+            name: movie.name,
+            poster: movie.poster,
+            rating: movie.rating,
+            summary: movie.summary,
+            trailer: movie.trailer,
         },
         validationSchema: addMovieFormValidationSchema,
-        onSubmit: (newMovieObj) => {
-            console.log("Form Values: ", newMovieObj);
-            addMovie(newMovieObj);
+        onSubmit: (updatedMovie) => {
+            console.log("Form Values: ", updatedMovie);
+            editMovie(updatedMovie);
+
         }
     });
 
     const navigate = useNavigate();
 
-    const addMovie = (newMovieObj) => {
+    const editMovie = (updatedMovie) => {
         // const newMovieObj = {
         //     name: formik.values.name,
         //     poster: formik.values.poster,
@@ -54,10 +69,10 @@ export function AddMovie() {
         // setmovieList([...movieList, newMovieObj]);
         // console.log(newMovieObj);
 
-        fetch("https://63899fdec5356b25a203ee32.mockapi.io/movies",
+        fetch(`https://63899fdec5356b25a203ee32.mockapi.io/movies/${movie.id}`,
             {
-                method: "POST",
-                body: JSON.stringify(newMovieObj),
+                method: "PUT",
+                body: JSON.stringify(updatedMovie),
                 headers: { "Content-type": "application/json" },
             }).then(() => navigate("/movies"));
 
@@ -131,7 +146,7 @@ export function AddMovie() {
                     onChange={(event) => setSummary(event.target.value)} />
                 <button onClick={addMovie}>Add Movie</button>
             <Button variant="contained" onClick={addMovie}>Add Movie</Button>*/}
-            <Button variant="contained" type='submit'>Add Movie</Button>
+            <Button variant="contained" color="success" type='submit'>Save</Button>
         </form>
     );
 }
